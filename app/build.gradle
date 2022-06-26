@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.android.hubview"
+        minSdk 22
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            // for increasing no of errors javac prints
+            options.compilerArgs << "-Xmaxerrs" << "500"
+        }
+    }
+}
+
+dependencies {
+    // androidX
+    implementation libs.androidX.activity
+    implementation libs.androidX.app_compat
+    implementation libs.androidX.core
+    implementation libs.androidX.constraint_layout
+    implementation libs.androidX.fragment
+    implementation libs.androidX.paging
+    implementation libs.androidX.recycler_view
+    implementation libs.androidX.swipe_refresh
+
+    // di
+    implementation libs.di.dagger
+    implementation libs.di.dagger_android
+    kapt libs.di.dagger_compiler
+    kapt libs.di.dagger_android_processor
+
+    // image loader
+    implementation libs.imageLoader.glide
+    kapt libs.imageLoader.glide_compiler
+
+    // kotlin
+    implementation libs.kotlin.stdlib
+    implementation libs.kotlin.coroutines_android
+    implementation libs.kotlin.coroutines_core
+
+    // lifecycle
+    implementation libs.lifecycle.livedata
+    implementation libs.lifecycle.viewmodel
+
+    // navigation
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+
+    // network
+    implementation libs.network.retrofit
+    implementation libs.network.retrofit_converter_gson
+    implementation libs.network.okhttp_logging
+
+    // ui
+    implementation libs.ui.material
+
+    // utils
+    implementation libs.utils.gson
+
+    testImplementation libs.test.junit
+    androidTestImplementation libs.androidTest.junit
+    androidTestImplementation libs.androidTest.espresso
+}
