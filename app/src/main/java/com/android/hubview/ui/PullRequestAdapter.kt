@@ -12,11 +12,11 @@ import com.android.hubview.databinding.ListItemPullRequestBinding
 /**
  * Created by Ankit Maheswari on 03/07/22.
  */
-class PullRequestAdapter(private var pullRequestItems: List<PullRequest>)
+class PullRequestAdapter(private var pullRequestItems: MutableList<PullRequest>)
     : RecyclerView.Adapter<PullRequestAdapter.PullRequestViewHolder>() {
 
     fun update(updatedPullRequests: List<PullRequest>) {
-        pullRequestItems = updatedPullRequests
+        pullRequestItems.addAll(updatedPullRequests)
         notifyDataSetChanged()
     }
 

@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.hubview.databinding.ActivityMainBinding
 import com.android.hubview.ui.PullRequestAdapter
 import com.android.hubview.ui.PullRequestsViewModel
+import com.android.hubview.ui.RecyclerViewPageScrollListener
 import com.android.hubview.utils.Config
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
-
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -36,17 +35,38 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.let {
             title = getString(R.string.toolbar_title_pull_requests)
         }
+        setUpPagination()
+    }
 
-        val pullRequestAdapter = PullRequestAdapter(listOf())
+    private fun setUpPagination() {
+        val pullRequestAdapter = PullRequestAdapter(mutableListOf())
         val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        binding.pullRequestsRv.apply {
+        val pullRequestRv: RecyclerView = binding.pullRequestsRv
+        pullRequestRv.apply {
             layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
             adapter = pullRequestAdapter
         }
+        pullRequestRv.addOnScrollListener(object : RecyclerViewPageScrollListener(linearLayoutManager) {
+            override fun isLoading(): Boolean {
+                return viewModel.isLoading.value ?: false
+            }
 
-        viewModel.closedPullRequest.observe(this, Observer {
-            pullRequestAdapter.update(it)
+            override fun isLastPage(): Boolean {
+                return viewModel.isLastPage()
+            }
+
+            override fun loadMoreItems() {
+                viewModel.loadMoreItems()
+            }
+
+            override fun pageSize(): Int {
+                return viewModel.pageSize
+            }
         })
+
+        viewModel.closedPullRequest.observe(this) {
+            pullRequestAdapter.update(it)
+        }
     }
 }

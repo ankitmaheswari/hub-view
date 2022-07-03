@@ -17,14 +17,26 @@ class PullRequestsViewModel @Inject constructor(
         private val pullRequestRepository: PullRequestRepository) : ViewModel() {
 
     val project: String = "${Config.REPOSITORY_OWNER}/${Config.REPOSITORY_NAME}"
+    val pageSize = Config.PER_PAGE_SIZE
     val closedPullRequest: LiveData<List<PullRequest>>
         get() = pullRequestRepository.closedPullRequests
+    private var isLastPage = false
+    private var currentPageNumber = 1
     private var _showProgressBar = MutableLiveData(true)
-    val showProgressBar: LiveData<Boolean>
+    val isLoading: LiveData<Boolean>
         get() = _showProgressBar
 
 
     init {
+        fetchClosedPullRequests()
+    }
+
+    fun isLastPage(): Boolean {
+        return currentPageNumber == Config.MAX_PAGES
+    }
+
+    fun loadMoreItems() {
+        currentPageNumber += 1
         fetchClosedPullRequests()
     }
 
@@ -33,7 +45,7 @@ class PullRequestsViewModel @Inject constructor(
         viewModelScope.launch {
             pullRequestRepository.getClosedPullRequests(Config.REPOSITORY_OWNER,
                     Config.REPOSITORY_NAME,
-                    Config.DEFAULT_PAGE_NUMBER,
+                    currentPageNumber,
                     Config.PER_PAGE_SIZE
             )
             _showProgressBar.postValue(false)

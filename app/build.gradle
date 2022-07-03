@@ -50,9 +50,7 @@ dependencies {
     implementation libs.androidX.core
     implementation libs.androidX.constraint_layout
     implementation libs.androidX.fragment
-    implementation libs.androidX.paging
     implementation libs.androidX.recycler_view
-    implementation libs.androidX.swipe_refresh
 
     // di
     implementation libs.di.dagger
@@ -72,10 +70,6 @@ dependencies {
     // lifecycle
     implementation libs.lifecycle.livedata
     implementation libs.lifecycle.viewmodel
-
-    // navigation
-    implementation libs.navigation.fragment
-    implementation libs.navigation.ui
 
     // network
     implementation libs.network.retrofit

@@ -10,7 +10,7 @@ class Config {
         const val BASE_URL = "https://api.github.com"
         const val REPOSITORY_OWNER = "square"
         const val REPOSITORY_NAME = "okhttp"
-        const val PER_PAGE_SIZE = 20
-        const val DEFAULT_PAGE_NUMBER = 1
+        const val PER_PAGE_SIZE = 10
+        const val MAX_PAGES = 10
     }
 }
