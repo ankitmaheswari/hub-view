@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--paddings-->
+    <dimen name="padding_base">8dp</dimen>
+    <dimen name="padding_low">4dp</dimen>
+    <dimen name="padding_high">12dp</dimen>
+    <dimen name="padding_xhigh">16dp</dimen>
+    <dimen name="padding_xxhigh">24dp</dimen>
+    <dimen name="padding_xxxhigh">32dp</dimen>
+    <dimen name="padding_large">48dp</dimen>
+
+    <!--margins-->
+    <dimen name="margin_base">8dp</dimen>
+    <dimen name="margin_low">4dp</dimen>
+    <dimen name="margin_high">12dp</dimen>
+    <dimen name="margin_xhigh">16dp</dimen>
+    <dimen name="margin_xxhigh">24dp</dimen>
+    <dimen name="margin_xxxhigh">32dp</dimen>
+    <dimen name="margin_large">48dp</dimen>
+
+    <!--text size-->
+    <dimen name="text_base">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+
+    <dimen name="avatar_width">48dp</dimen>
+    <dimen name="avatar_height">48dp</dimen>
+</resources>

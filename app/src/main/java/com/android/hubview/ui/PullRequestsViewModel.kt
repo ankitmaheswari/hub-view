@@ -16,21 +16,27 @@ import javax.inject.Inject
 class PullRequestsViewModel @Inject constructor(
         private val pullRequestRepository: PullRequestRepository) : ViewModel() {
 
-    private val _closedPullRequests:MutableLiveData<List<PullRequest>> = MutableLiveData()
+    val project: String = "${Config.REPOSITORY_OWNER}/${Config.REPOSITORY_NAME}"
     val closedPullRequest: LiveData<List<PullRequest>>
-    get() = pullRequestRepository.closedPullRequests
+        get() = pullRequestRepository.closedPullRequests
+    private var _showProgressBar = MutableLiveData(true)
+    val showProgressBar: LiveData<Boolean>
+        get() = _showProgressBar
+
 
     init {
         fetchClosedPullRequests()
     }
 
-    fun fetchClosedPullRequests() {
+    private fun fetchClosedPullRequests() {
+        _showProgressBar.postValue(true)
         viewModelScope.launch {
             pullRequestRepository.getClosedPullRequests(Config.REPOSITORY_OWNER,
                     Config.REPOSITORY_NAME,
                     Config.DEFAULT_PAGE_NUMBER,
                     Config.PER_PAGE_SIZE
             )
+            _showProgressBar.postValue(false)
         }
     }
 }

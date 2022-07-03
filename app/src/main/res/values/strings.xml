@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Hub View</string>
+    <string name="toolbar_title_pull_requests">Closed Pull Requests</string>
+    <string name="pull_request_project_name">for %1$s</string>
+    <string name="pull_request_author">by %1$s</string>
+    <string name="pull_request_created">created on %1$s</string>
+    <string name="pull_request_closed">closed on %1$s</string>
 </resources>

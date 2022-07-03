@@ -8,11 +8,4 @@ import dagger.Module
 @Module(includes = [ViewModelModule::class,
     NetworkModule::class,
     DataModule::class])
-class ApplicationModule {
-
-    /*@Binds
-    abstract fun bindContext(application: Application): Context
-
-    @ContributesAndroidInjector
-    abstract fun contributeActivityInjector(): MainActivity*/
-}
+class ApplicationModule

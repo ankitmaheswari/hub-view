@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="pullRequest"
+            type="com.android.hubview.data.PullRequest" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_list_item"
+        android:padding="@dimen/padding_base">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/pullRequestNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:text="@{Long.toString(pullRequest.pullRequestNumber)}"
+            tools:text="#2750"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/pullRequestTitle"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/pullRequestTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/margin_base"
+            android:maxLines="2"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_base"
+            android:text="@{pullRequest.pullRequestTitle}"
+            tools:text="This is the title of the Github Pull Request and should not exceed two lines of text and if it exceeds the text should be ellipsized at the end"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/pullRequestNo"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="@dimen/avatar_width"
+            android:layout_height="@dimen/avatar_width"
+            android:layout_marginTop="@dimen/margin_xhigh"
+            android:adjustViewBounds="true"
+            app:setImage="@{pullRequest.author.avatarUrl}"
+            app:srcCompat="@drawable/avatar_default"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pullRequestNo" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/margin_base"
+            android:maxLines="1"
+            android:textSize="@dimen/text_base"
+            android:textColor="@color/text_primary"
+            android:text="@{@string/pull_request_author(pullRequest.author.username)}"
+            tools:text="by username"
+            app:layout_constraintLeft_toRightOf="@+id/userAvatar"
+            app:layout_constraintTop_toTopOf="@+id/userAvatar"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/createdAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_low"
+            android:layout_marginStart="@dimen/margin_base"
+            android:textSize="@dimen/text_small"
+            android:textStyle="italic"
+            android:textColor="@color/text_primary"
+            tools:text="created on 25th Dec 2022"
+            app:setCreatedAt="@{pullRequest.createdAt}"
+            app:layout_constraintLeft_toRightOf="@+id/userAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/closedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_low"
+            android:layout_marginStart="@dimen/margin_base"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/text_primary"
+            android:textStyle="italic"
+            tools:text="closed on 05th Dec 2022"
+            app:setClosedAt="@{pullRequest.closedAt}"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/createdAt"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
+            app:layout_constraintBottom_toBottomOf="@+id/createdAt"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
